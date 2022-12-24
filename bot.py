@@ -432,8 +432,11 @@ async def media_extracter(c: Client, m: Message):
             mid=rmess.id
             file_name = media.file_name
             if file_name is None:
-                await m.reply("File name not found; goto @AnshumanPM_2006")
-                return
+			if m.video :
+				file_name = "anshuman.mkv"
+			else:
+				await m.reply("File name not found; goto @AnshumanPM_2006")
+				return
             markup = bMaker.makebuttons(
                 set1=["Audio", "Subtitle", "Cancel"],
                 set2=[f"extract_audio_{mid}", f"extract_subtitle_{mid}", 'cancel'],
