@@ -235,6 +235,8 @@ async def files_handler(c: Client, m: Message):
     if media.file_name is None:
         if m.video:
         	media.file_name = "anshuman.mkv"
+        elif m.audio:
+        	media.file_name = "anshuman.mp3"
         else:
         	await m.reply_text("File Not Found")
         	return 
