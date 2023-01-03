@@ -18,7 +18,6 @@ try:
     except Exception as e:
         LOGGER.error(f"CONFIG_FILE_URL: {e}")
 except Exception as e:
-    LOGGER.error(e)
     pass
 load_dotenv(
     "config.env",
@@ -27,15 +26,11 @@ load_dotenv(
 # tired of redeploying :(
 UPSTREAM_REPO = os.environ.get('UPSTREAM_REPO')
 UPSTREAM_BRANCH = os.environ.get('UPSTREAM_BRANCH')
-try:
-    if len(UPSTREAM_REPO) == 0:
-       raise TypeError
-except:
-    UPSTREAM_REPO = None
-try:
-    if len(UPSTREAM_BRANCH) == 0:
-       raise TypeError
-except:
+
+if len(UPSTREAM_REPO) == 0:
+   UPSTREAM_REPO = None
+
+if len(UPSTREAM_BRANCH) == 0:
     UPSTREAM_BRANCH = 'master'
 
 if UPSTREAM_REPO is not None:
@@ -43,7 +38,7 @@ if UPSTREAM_REPO is not None:
         subprocess.run(["rm", "-rf", ".git"])
 
     update = subprocess.run([f"git init -q \
-                     && git config --global user.email yashoswal18@gmail.com \
+                     && git config --global user.email anshumanprasadmahanta@gmail.com \
                      && git config --global user.name mergebot \
                      && git add . \
                      && git commit -sm update -q \
